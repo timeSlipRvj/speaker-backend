@@ -22,16 +22,10 @@ export class ProviderInfoDTO {
     role: string
 
     @IsString()
-    occupation: string
-    @IsString()
-    age: string
-
-    @IsString()
     @IsNotEmpty()
     provider: AuthProvider
 
     phone: string
-
 }
 
 export class userProviderInfoDTO {
@@ -44,11 +38,6 @@ export class userProviderInfoDTO {
     name: string
 
     @IsString()
-    age: string
-
-    @IsString()
-    occupation: string
-
     role: string
 
     @IsString()
@@ -56,7 +45,6 @@ export class userProviderInfoDTO {
     provider: AuthProvider
 
     phone: string
-
 }
 
 export class ProviderInfoDTOTwo {
@@ -70,9 +58,7 @@ export class ProviderInfoDTOTwo {
 
     phone: string
 
-    isSubscribed:boolean
-    
-
+    isSubscribed: boolean
 }
 export class updatedData {
     @IsEmail()
@@ -85,7 +71,5 @@ export class updatedData {
 
     phone: string
 
-    isSubscribed:boolean
-    
-
+    isSubscribed: boolean
 }

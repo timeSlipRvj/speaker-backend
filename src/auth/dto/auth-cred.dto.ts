@@ -8,7 +8,7 @@ import {
     IsBoolean,
 } from 'class-validator'
 import { AuthProvider } from '../enums/auth-provider.enum'
-import {Role} from "../enums/roles.enums"
+import { Role } from '../enums/roles.enums'
 
 export class AuthCredentialsDTO {
     @IsString()
@@ -16,7 +16,7 @@ export class AuthCredentialsDTO {
     provider: AuthProvider
 
     id: number
-    
+
     @IsEmail()
     email: string
 
@@ -28,14 +28,10 @@ export class AuthCredentialsDTO {
     @IsString()
     phone: string
 
-    role:Role
-    @IsString()
-    occupation: string
-    @IsString()
-    age: string
+    role: Role
+
     @IsBoolean()
     isSubscribed: boolean
-
 }
 export class updateUserDTO {
     @IsString()
@@ -43,7 +39,7 @@ export class updateUserDTO {
     provider: AuthProvider
 
     id: number
-    
+
     @IsEmail()
     email: string
 
@@ -55,41 +51,26 @@ export class updateUserDTO {
     @IsString()
     phone: string
 
-    role:Role
-
-    @IsString()
-    age: string
-
-    @IsString()
-    occupation: string
+    role: Role
 
     @IsBoolean()
     isSubscribed: boolean
-
 }
 export class AuthCredentialsDTOByEmail {
-
     @IsEmail()
     email: string
 
     @IsString()
     name: string
-    
+
     phone: string
 }
 export class updatedAuth {
-
     @IsEmail()
     email: string
 
     @IsString()
     name: string
-    
+
     phone: string
-
-    @IsString()
-    age: string
-
-    @IsString()
-    occupation: string
 }

@@ -25,7 +25,7 @@ export class User extends BaseEntity {
     @Column()
     email: string
 
-    @Column({ default: "USER" })
+    @Column({ default: 'USER' })
     role: string
 
     @Column({ default: false })
@@ -33,12 +33,8 @@ export class User extends BaseEntity {
 
     @Column({ nullable: true })
     phone: string
-    @Column({ nullable: true })
-    occupation: string
-    @Column({ nullable: true })
-    age: string
 
-    @Column({ enum: AuthProvider ,nullable: true })
+    @Column({ enum: AuthProvider, nullable: true })
     provider: string
 
     // @Column({ nullable: true })
@@ -48,35 +44,30 @@ export class User extends BaseEntity {
     created_at: Date
 
     // Events created by the user
-    @OneToMany(
-        type => Episode,
-        episode => episode.user
-    )
+    @OneToMany((type) => Episode, (episode) => episode.user)
     events: Episode[]
 
     @Column({ default: false })
     subscribed: boolean
 
     // Events bookmarked by the user
-    @ManyToMany(
-        type => Episode,
-        episode => episode.users,
-        { cascade: true }
-    )
+    @ManyToMany((type) => Episode, (episode) => episode.users, {
+        cascade: true,
+    })
     @JoinTable()
     bookmarks: Episode[]
 
     // History of plans used by the user
     @OneToMany(
-        type => SubscriptionHistory,
-        subscription => subscription.user
+        (type) => SubscriptionHistory,
+        (subscription) => subscription.user
     )
     plans: SubscriptionHistory[]
 
     // payment transactions history
     @OneToMany(
-        type => PaymentTransaction,
-        paymentTransaction => paymentTransaction.user
+        (type) => PaymentTransaction,
+        (paymentTransaction) => paymentTransaction.user
     )
     transactions: PaymentTransaction[]
     isSubscribed: boolean

@@ -10,9 +10,14 @@ import { JwtPayload, JwtPayloadByEmail } from './jwt/jwt-payload.interface'
 import {
     AuthCredentialsDTO,
     AuthCredentialsDTOByEmail,
-    updatedAuth,updateUserDTO
+    updatedAuth,
+    updateUserDTO,
 } from './dto/auth-cred.dto'
-import { ProviderInfoDTO, ProviderInfoDTOTwo, userProviderInfoDTO} from './dto/provider-info.dto'
+import {
+    ProviderInfoDTO,
+    ProviderInfoDTOTwo,
+    userProviderInfoDTO,
+} from './dto/provider-info.dto'
 import { User } from './entities/user.entity'
 
 @Injectable()
@@ -20,7 +25,7 @@ export class AuthService {
     constructor(
         private userRepository: UserRepository,
         private jwtService: JwtService
-    ) { }
+    ) {}
 
     register = async (
         authCodeCreds: AuthCredentialsDTO
@@ -31,13 +36,13 @@ export class AuthService {
         userdata: any
     }> => {
         const { idToken } = authCodeCreds
-        console.log("========= authCodeCreds ===========")
+        console.log('========= authCodeCreds ===========')
         console.log(authCodeCreds)
         if (!this.verify(idToken)) {
             throw new UnauthorizedException('Authentication Failed')
         }
 
-        const { name, email, phone, provider, role, age, occupation } = authCodeCreds
+        const { name, email, phone, provider, role } = authCodeCreds
         // const role = role
         const userObj: userProviderInfoDTO = {
             email,
@@ -45,14 +50,12 @@ export class AuthService {
             phone,
             provider,
             role,
-            age,
-            occupation
         }
         try {
             let user = await this.userRepository.findOne({ email })
             if (!user || user == undefined) {
                 user = await this.userRepository.register(userObj)
-                console.log("========= true=========");
+                console.log('========= true=========')
                 console.log(user)
             }
             // Create a jwt token from the given info
@@ -104,26 +107,23 @@ export class AuthService {
     //     }
     // }
 
-    update = async (
-        authCodeCreds: updatedAuth,
-        id: string
-    ): Promise<{}> => {
+    update = async (authCodeCreds: updatedAuth, id: string): Promise<{}> => {
         try {
-            let data = await this.userRepository.findOne(id);
-            let updated = Object.assign(data, authCodeCreds);
-            console.log(updated,"updatedupdated")
-            const newOne = await this.userRepository.save(updated);
+            let data = await this.userRepository.findOne(id)
+            let updated = Object.assign(data, authCodeCreds)
+            console.log(updated, 'updatedupdated')
+            const newOne = await this.userRepository.save(updated)
             return newOne
         } catch (e) {
             throw new ConflictException(e)
         }
     }
     async findUser(id: any): Promise<User> {
-        return this.userRepository.findOne( { where: { id: id } } );
+        return this.userRepository.findOne({ where: { id: id } })
     }
 
-    async findById( id: any ): Promise<User> {
-        return this.userRepository.findOne({ where: { id: id } } );
+    async findById(id: any): Promise<User> {
+        return this.userRepository.findOne({ where: { id: id } })
     }
 
     async verify(token: string): Promise<any> {
